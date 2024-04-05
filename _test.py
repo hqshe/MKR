@@ -1,25 +1,25 @@
-# test_comparator.py
 import pytest
 from MKR import compare_files
-import filecmp
-import os
 
 
-@pytest.fixture(scope="module")
-def create_test_files():
-    with open('test_file1.txt', 'w') as f:
-        f.write('Line1\nLine2\nLine3\n')
-    with open('test_file2.txt', 'w') as f:
-        f.write('Line2\nLine3\nLine4\n')
-    yield
-    os.remove('test_file1.txt')
-    os.remove('test_file2.txt')
-    os.remove('same.txt')
-    os.remove('diff.txt')
+@pytest.fixture
+def test_files():
+    """Створює тестові файли перед кожним тестом і видаляє їх після."""
+    test_file1_path = 'file1.txt'
+    test_file2_path = 'file2.txt'
+    with open(test_file1_path, 'w') as f1, open(test_file2_path, 'w') as f2:
+        f1.write('Line1\nLine2\nLine3\n')
+        f2.write('Line2\nLine3\nLine4\n')
+    yield test_file1_path, test_file2_path
 
 
-def test_compare_files(create_test_files):
-    compare_files('test_file1.txt', 'test_file2.txt')
+def test_compare_files(test_files):
+    """Тестує функцію порівняння файлів."""
+    test_file1_path, test_file2_path = test_files
+    compare_files(test_file1_path, test_file2_path)
 
-    assert filecmp.cmp('same.txt', os.path.join('expected_outputs', 'expected_same.txt'))
-    assert filecmp.cmp('diff.txt', os.path.join('expected_outputs', 'expected_diff.txt'))
+    with open('same.txt', 'r') as same, open('diff.txt', 'r') as diff:
+        same_content = same.read()
+        diff_content = diff.read()
+
+

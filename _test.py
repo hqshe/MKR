@@ -8,8 +8,8 @@ def test_files():
     test_file1_path = 'file1.txt'
     test_file2_path = 'file2.txt'
     with open(test_file1_path, 'w') as f1, open(test_file2_path, 'w') as f2:
-        f1.write('Line1\nLine2\nLine3\n')
-        f2.write('Line2\nLine3\nLine4\n')
+        f1.write("It's first sentence\nIt's second sentence\nIt's third sentence\n")
+        f2.write("It's second sentence\nIt's third sentence\nIt's fourth sentence\n")
     yield test_file1_path, test_file2_path
 
 

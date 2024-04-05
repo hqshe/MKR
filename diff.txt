@@ -1,2 +1,2 @@
-Line1
-Line4
+It's first sentence
+It's fourth sentence

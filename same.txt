@@ -1,2 +1,2 @@
-Line2
-Line3
+It's second sentence
+It's third sentence
